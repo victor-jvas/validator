@@ -3,16 +3,19 @@ package application
 import (
 	"context"
 	"fmt"
+	"github.com/redis/go-redis/v9"
 	"net/http"
 )
 
 type App struct {
 	router http.Handler
+	rdb    *redis.Client
 }
 
 func NewApp() *App {
 	app := &App{
 		router: loadRoutes(),
+		rdb:    redis.NewClient(&redis.Options{}),
 	}
 
 	return app
